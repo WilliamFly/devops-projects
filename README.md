@@ -12,6 +12,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [06 - Dummy Systemd Service](./06-dummy-systemd-service) — Long-running systemd service that logs every 10 seconds
 - [07 - Static Site Server](./07-static-site-server) — NGINX static site on AWS EC2, deployed via rsync
 - [08 - SSH Remote Server Setup](./08-ssh-remote-server-setup) — Two SSH key pairs, authorized_keys config, and SSH alias setup on AWS EC2
+- [09 - EC2 Instance](./09-ec2-instance) — AWS EC2 instance launch, security group config, and static site deployment via NGINX
 
 ## Project URLs (roadmap.sh)
 
@@ -23,5 +24,6 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 06 - Dummy Systemd Service: https://roadmap.sh/projects/dummy-systemd-service
 - 07 - Static Site Server: https://roadmap.sh/projects/static-site-server
 - 08 - SSH Remote Server Setup: https://roadmap.sh/projects/ssh-remote-server-setup
+- 09 - EC2 Instance: https://roadmap.sh/projects/ec2-instance
 
 More projects added as I work through them.
