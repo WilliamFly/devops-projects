@@ -26,6 +26,6 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 07 - Static Site Server: https://roadmap.sh/projects/static-site-server
 - 08 - SSH Remote Server Setup: https://roadmap.sh/projects/ssh-remote-server-setup
 - 09 - EC2 Instance: https://roadmap.sh/projects/ec2-instance
-- 10 - Simple Monitoring: https://roadmap.sh/projects/simple-monitoring
+- 10 - Simple Monitoring: https://roadmap.sh/projects/simple-monitoring-dashboard
 
 More projects added as I work through them.

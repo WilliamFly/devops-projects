@@ -3,7 +3,7 @@
 Setting up a basic monitoring dashboard using Netdata on an AWS EC2 instance, including automated setup, load testing, and cleanup scripts.
 
 ## Project URL
-https://roadmap.sh/projects/simple-monitoring
+https://roadmap.sh/projects/simple-monitoring-dashboard
 
 ## Stack
 - AWS EC2 (Ubuntu 24.04 LTS, t2.micro)
