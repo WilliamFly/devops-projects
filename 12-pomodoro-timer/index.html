@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pomodoro Timer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0A192F;
+    color: #CCD6F6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  h1 {
+    color: #00B4D8;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .session-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .tab {
+    padding: 0.5rem 1.25rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0,180,216,0.3);
+    background: transparent;
+    color: #8892B0;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab.active {
+    background: rgba(0,180,216,0.15);
+    border-color: #00B4D8;
+    color: #00B4D8;
+  }
+  .tab:hover { border-color: #00B4D8; color: #00B4D8; }
+  .timer-card {
+    background: #112240;
+    border: 1px solid rgba(100,255,218,0.1);
+    border-radius: 16px;
+    padding: 3rem 4rem;
+    text-align: center;
+    min-width: 340px;
+    margin-bottom: 2rem;
+  }
+  .session-label {
+    color: #8892B0;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .timer-display {
+    font-size: 5rem;
+    font-weight: 700;
+    color: #CCD6F6;
+    letter-spacing: 4px;
+    margin-bottom: 2rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .timer-display.work { color: #00B4D8; }
+  .timer-display.short-break { color: #64FFDA; }
+  .timer-display.long-break { color: #A8B2D8; }
+  .controls { display: flex; gap: 1rem; justify-content: center; }
+  .btn {
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .btn-start {
+    background: #00B4D8;
+    color: #0A192F;
+    min-width: 120px;
+  }
+  .btn-start:hover { background: #00C8F0; }
+  .btn-reset {
+    background: transparent;
+    border: 1px solid #8892B0;
+    color: #8892B0;
+  }
+  .btn-reset:hover { border-color: #CCD6F6; color: #CCD6F6; }
+  .stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .stat {
+    background: #112240;
+    border: 1px solid rgba(100,255,218,0.1);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    min-width: 120px;
+  }
+  .stat-number { color: #00B4D8; font-size: 1.8rem; font-weight: 700; }
+  .stat-label { color: #8892B0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.25rem; }
+  .settings-toggle {
+    background: transparent;
+    border: 1px solid rgba(100,255,218,0.1);
+    color: #8892B0;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    transition: all 0.2s;
+  }
+  .settings-toggle:hover { border-color: #00B4D8; color: #00B4D8; }
+  .settings-panel {
+    background: #112240;
+    border: 1px solid rgba(100,255,218,0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: none;
+    min-width: 340px;
+    margin-bottom: 1rem;
+  }
+  .settings-panel.open { display: block; }
+  .settings-panel h3 { color: #CCD6F6; font-size: 0.9rem; margin-bottom: 1rem; letter-spacing: 1px; text-transform: uppercase; }
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+  .setting-row label { color: #8892B0; font-size: 0.875rem; }
+  .setting-row input {
+    width: 70px;
+    padding: 0.4rem 0.5rem;
+    background: #0A192F;
+    border: 1px solid rgba(0,180,216,0.3);
+    border-radius: 4px;
+    color: #CCD6F6;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+  .setting-row input:focus { outline: none; border-color: #00B4D8; }
+  .btn-apply {
+    width: 100%;
+    padding: 0.6rem;
+    background: rgba(0,180,216,0.15);
+    border: 1px solid #00B4D8;
+    color: #00B4D8;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    transition: all 0.2s;
+  }
+  .btn-apply:hover { background: rgba(0,180,216,0.25); }
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(100,255,218,0.1);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #00B4D8;
+    border-radius: 2px;
+    transition: width 1s linear;
+  }
+  @media (max-width: 480px) {
+    .timer-card { padding: 2rem; min-width: unset; width: 100%; }
+    .timer-display { font-size: 4rem; }
+    .stats { gap: 1rem; }
+    .settings-panel { min-width: unset; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Pomodoro Timer</h1>
+
+<div class="session-tabs">
+  <button class="tab active" onclick="switchSession('work')" id="tab-work">Work</button>
+  <button class="tab" onclick="switchSession('short-break')" id="tab-short">Short Break</button>
+  <button class="tab" onclick="switchSession('long-break')" id="tab-long">Long Break</button>
+</div>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number" id="sessions-count">0</div>
+    <div class="stat-label">Sessions</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number" id="cycles-count">0</div>
+    <div class="stat-label">Cycles</div>
+  </div>
+</div>
+
+<div class="timer-card">
+  <div class="session-label" id="session-label">Work Session</div>
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill" style="width: 100%"></div>
+  </div>
+  <div class="timer-display work" id="timer-display">25:00</div>
+  <div class="controls">
+    <button class="btn btn-start" id="start-btn" onclick="toggleTimer()">Start</button>
+    <button class="btn btn-reset" onclick="resetTimer()">Reset</button>
+  </div>
+</div>
+
+<button class="settings-toggle" onclick="toggleSettings()">⚙ Settings</button>
+
+<div class="settings-panel" id="settings-panel">
+  <h3>Configure Intervals</h3>
+  <div class="setting-row">
+    <label>Work Session (min)</label>
+    <input type="number" id="work-input" value="25" min="1" max="60" aria-label="Work session duration in minutes" />
+  </div>
+  <div class="setting-row">
+    <label>Short Break (min)</label>
+    <input type="number" id="short-input" value="5" min="1" max="30" aria-label="Short break duration in minutes" />
+  </div>
+  <div class="setting-row">
+    <label>Long Break (min)</label>
+    <input type="number" id="long-input" value="15" min="1" max="60" aria-label="Long break duration in minutes" />
+  </div>
+  <div class="setting-row">
+    <label>Sessions before Long Break</label>
+    <input type="number" id="cycle-input" value="4" min="1" max="10" aria-label="Number of sessions before long break" />
+  </div>
+  <button class="btn-apply" onclick="applySettings()">Apply Settings</button>
+</div>
+
+<audio id="bell-sound" preload="auto">
+  <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAA..." type="audio/wav">
+</audio>
+
+<script>
+  let config = {
+    work: 25 * 60,
+    shortBreak: 5 * 60,
+    longBreak: 15 * 60,
+    cycleLength: 4
+  };
+
+  let state = {
+    current: 'work',
+    timeLeft: config.work,
+    totalTime: config.work,
+    running: false,
+    interval: null,
+    sessions: 0,
+    cycles: 0
+  };
+
+  const labels = {
+    'work': 'Work Session',
+    'short-break': 'Short Break',
+    'long-break': 'Long Break'
+  };
+
+  function formatTime(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  function updateDisplay() {
+    document.getElementById('timer-display').textContent = formatTime(state.timeLeft);
+    document.title = `${formatTime(state.timeLeft)} — ${labels[state.current]}`;
+    const pct = (state.timeLeft / state.totalTime) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('sessions-count').textContent = state.sessions;
+    document.getElementById('cycles-count').textContent = state.cycles;
+  }
+
+  function playBell() {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.frequency.setValueAtTime(830, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(415, ctx.currentTime + 0.5);
+    gain.gain.setValueAtTime(0.4, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.5);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 1.5);
+  }
+
+  function sessionComplete() {
+    playBell();
+    clearInterval(state.interval);
+    state.running = false;
+    document.getElementById('start-btn').textContent = 'Start';
+
+    if (state.current === 'work') {
+      state.sessions++;
+      if (state.sessions % config.cycleLength === 0) {
+        state.cycles++;
+        switchSession('long-break');
+      } else {
+        switchSession('short-break');
+      }
+    } else {
+      switchSession('work');
+    }
+    updateDisplay();
+  }
+
+  function toggleTimer() {
+    if (state.running) {
+      clearInterval(state.interval);
+      state.running = false;
+      document.getElementById('start-btn').textContent = 'Resume';
+    } else {
+      state.running = true;
+      document.getElementById('start-btn').textContent = 'Pause';
+      state.interval = setInterval(() => {
+        state.timeLeft--;
+        updateDisplay();
+        if (state.timeLeft <= 0) sessionComplete();
+      }, 1000);
+    }
+  }
+
+  function resetTimer() {
+    clearInterval(state.interval);
+    state.running = false;
+    document.getElementById('start-btn').textContent = 'Start';
+    const durations = {
+      'work': config.work,
+      'short-break': config.shortBreak,
+      'long-break': config.longBreak
+    };
+    state.timeLeft = durations[state.current];
+    state.totalTime = durations[state.current];
+    updateDisplay();
+  }
+
+  function switchSession(type) {
+    clearInterval(state.interval);
+    state.running = false;
+    document.getElementById('start-btn').textContent = 'Start';
+    state.current = type;
+
+    const durations = {
+      'work': config.work,
+      'short-break': config.shortBreak,
+      'long-break': config.longBreak
+    };
+
+    state.timeLeft = durations[type];
+    state.totalTime = durations[type];
+
+    document.getElementById('session-label').textContent = labels[type];
+    const display = document.getElementById('timer-display');
+    display.className = 'timer-display ' + type;
+
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    const tabMap = { 'work': 'tab-work', 'short-break': 'tab-short', 'long-break': 'tab-long' };
+    document.getElementById(tabMap[type]).classList.add('active');
+
+    updateDisplay();
+  }
+
+  function toggleSettings() {
+    document.getElementById('settings-panel').classList.toggle('open');
+  }
+
+  function applySettings() {
+    config.work = parseInt(document.getElementById('work-input').value) * 60;
+    config.shortBreak = parseInt(document.getElementById('short-input').value) * 60;
+    config.longBreak = parseInt(document.getElementById('long-input').value) * 60;
+    config.cycleLength = parseInt(document.getElementById('cycle-input').value);
+    resetTimer();
+    document.getElementById('settings-panel').classList.remove('open');
+  }
+
+  // Keyboard accessibility
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Space' && e.target.tagName !== 'INPUT') {
+      e.preventDefault();
+      toggleTimer();
+    }
+    if (e.code === 'KeyR' && e.target.tagName !== 'INPUT') resetTimer();
+  });
+
+  updateDisplay();
+</script>
+</body>
+</html>
