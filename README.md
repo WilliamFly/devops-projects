@@ -17,6 +17,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [11 - Basic DNS Setup](./11-basic-dns-setup) — Custom domain setup for GitHub Pages using Hostinger DNS, live at williammucha.com
 - [12 - Pomodoro Timer](./12-pomodoro-timer) — Vanilla JS Pomodoro Timer with configurable intervals, session tracking, and Web Audio bell
 - [13 - File Integrity Checker](./13-file-integrity-checker) — SHA-256 based log file integrity checker with init, check, and update commands
+- [14 - Linux Server Setup](./14-linux-server-setup) — Fresh Ubuntu 24.04 EC2 server hardened with UFW, Fail2Ban, SSH key auth, and automatic security updates
 
 ## Project URLs (roadmap.sh)
 
@@ -33,6 +34,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 11 - Basic DNS Setup: https://roadmap.sh/projects/basic-dns
 - 12 - Pomodoro Timer: https://roadmap.sh/projects/pomodoro-timer
 - 13 - File Integrity Checker: https://roadmap.sh/projects/file-integrity-checker
+- 14 - Linux Server Setup: https://roadmap.sh/projects/linux-server-setup
 
 ## Live Portfolio
 [williammucha.com](https://williammucha.com)
