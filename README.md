@@ -14,6 +14,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [08 - SSH Remote Server Setup](./08-ssh-remote-server-setup) — Two SSH key pairs, authorized_keys config, and SSH alias setup on AWS EC2
 - [09 - EC2 Instance](./09-ec2-instance) — AWS EC2 instance launch, security group config, and static site deployment via NGINX
 - [10 - Simple Monitoring](./10-simple-monitoring) — Netdata monitoring dashboard on AWS EC2 with automated setup, load testing, and cleanup scripts
+- [11 - Basic DNS Setup](./11-basic-dns-setup) — Custom domain setup for GitHub Pages using Hostinger DNS, live at williammucha.com
 
 ## Project URLs (roadmap.sh)
 
@@ -27,5 +28,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 08 - SSH Remote Server Setup: https://roadmap.sh/projects/ssh-remote-server-setup
 - 09 - EC2 Instance: https://roadmap.sh/projects/ec2-instance
 - 10 - Simple Monitoring: https://roadmap.sh/projects/simple-monitoring-dashboard
+- 11 - Basic DNS Setup: https://roadmap.sh/projects/basic-dns
 
-More projects added as I work through them.
+## Live Portfolio
+[williammucha.com](https://williammucha.com)
