@@ -1,0 +1,27 @@
+---
+- name: Remove existing web root contents
+  file:
+    path: /var/www/html
+    state: absent
+  become: true
+
+- name: Clone portfolio site into nginx web root
+  git:
+    repo: "https://github.com/WilliamFly/gh-deployment-workflow.git"
+    dest: /var/www/html
+    version: main
+  become: true
+
+- name: Set correct ownership on web root
+  file:
+    path: /var/www/html
+    owner: www-data
+    group: www-data
+    recurse: true
+  become: true
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+  become: true

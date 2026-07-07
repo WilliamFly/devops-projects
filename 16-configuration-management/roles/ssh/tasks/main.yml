@@ -1,0 +1,7 @@
+---
+- name: Add demo public key to authorized_keys
+  authorized_key:
+    user: ubuntu
+    state: present
+    key: "{{ demo_public_key }}"
+  become: true

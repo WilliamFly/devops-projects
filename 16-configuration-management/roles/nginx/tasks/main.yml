@@ -1,0 +1,19 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+  become: true
+
+- name: Ensure nginx is enabled and running
+  systemd:
+    name: nginx
+    enabled: true
+    state: started
+  become: true
+
+- name: Allow Nginx Full through UFW
+  ufw:
+    rule: allow
+    name: "Nginx Full"
+  become: true

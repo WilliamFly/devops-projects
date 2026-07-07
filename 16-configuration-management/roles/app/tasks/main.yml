@@ -1,0 +1,35 @@
+---
+- name: Remove existing web root contents
+  file:
+    path: /var/www/html
+    state: absent
+  become: true
+
+- name: Recreate empty web root
+  file:
+    path: /var/www/html
+    state: directory
+    owner: www-data
+    group: www-data
+  become: true
+
+- name: Copy app tarball to server
+  copy:
+    src: app.tar.gz
+    dest: /tmp/app.tar.gz
+  become: true
+
+- name: Unarchive app to nginx web root
+  unarchive:
+    src: /tmp/app.tar.gz
+    dest: /var/www/html
+    remote_src: true
+    owner: www-data
+    group: www-data
+  become: true
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: restarted
+  become: true

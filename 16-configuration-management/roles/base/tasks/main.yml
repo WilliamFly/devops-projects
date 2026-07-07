@@ -1,0 +1,36 @@
+---
+- name: Update apt package cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: true
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+  become: true
+
+- name: Install essential utilities
+  apt:
+    name:
+      - curl
+      - vim
+      - git
+      - htop
+      - ufw
+      - unzip
+    state: present
+  become: true
+
+- name: Install fail2ban
+  apt:
+    name: fail2ban
+    state: present
+  become: true
+
+- name: Ensure fail2ban is enabled and running
+  systemd:
+    name: fail2ban
+    enabled: true
+    state: started
+  become: true

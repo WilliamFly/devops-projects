@@ -19,6 +19,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [13 - File Integrity Checker](./13-file-integrity-checker) — SHA-256 based log file integrity checker with init, check, and update commands
 - [14 - Linux Server Setup](./14-linux-server-setup) — Fresh Ubuntu 24.04 EC2 server hardened with UFW, Fail2Ban, SSH key auth, and automatic security updates
 - [15 - IaC Terraform](./15-iac-terraform) — AWS EC2 instance provisioned with Terraform including security group and Elastic IP
+- [16 - Configuration Management with Ansible](./16-configuration-management) — Ansible playbook with base, nginx, ssh, and app/github-app roles configuring a Terraform-provisioned EC2 instance
 
 ## Project URLs (roadmap.sh)
 
@@ -37,6 +38,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 13 - File Integrity Checker: https://roadmap.sh/projects/file-integrity-checker
 - 14 - Linux Server Setup: https://roadmap.sh/projects/linux-server-setup
 - 15 - IaC Terraform: https://roadmap.sh/projects/iac-digitalocean
+- 16 - Configuration Management: https://roadmap.sh/projects/configuration-management
 
 ## Live Portfolio
 [williammucha.com](https://williammucha.com)
