@@ -1,0 +1,13 @@
+[Unit]
+Description=Node.js Service Deployment
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node index.js
+WorkingDirectory=/opt/nodejs-service-deployment
+Restart=on-failure
+User=root
+Environment=PORT=80
+
+[Install]
+WantedBy=multi-user.target
