@@ -20,6 +20,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [14 - Linux Server Setup](./14-linux-server-setup) — Fresh Ubuntu 24.04 EC2 server hardened with UFW, Fail2Ban, SSH key auth, and automatic security updates
 - [15 - IaC Terraform](./15-iac-terraform) — AWS EC2 instance provisioned with Terraform including security group and Elastic IP
 - [16 - Configuration Management with Ansible](./16-configuration-management) — Ansible playbook with base, nginx, ssh, and app/github-app roles configuring a Terraform-provisioned EC2 instance
+- [17 - Node.js Service Deployment](./17-nodejs-service-deployment) — Terraform-provisioned EC2 instance configured via Ansible, with GitHub Actions automating deployment on every push. App repo: [nodejs-service-deployment](https://github.com/WilliamFly/nodejs-service-deployment)
 
 ## Project URLs (roadmap.sh)
 
@@ -39,6 +40,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 14 - Linux Server Setup: https://roadmap.sh/projects/linux-server-setup
 - 15 - IaC Terraform: https://roadmap.sh/projects/iac-digitalocean
 - 16 - Configuration Management: https://roadmap.sh/projects/configuration-management
+- 17 - Node.js Service Deployment: https://roadmap.sh/projects/nodejs-service-deployment
 
 ## Live Portfolio
 [williammucha.com](https://williammucha.com)
