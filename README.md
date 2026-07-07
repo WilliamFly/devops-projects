@@ -21,6 +21,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [15 - IaC Terraform](./15-iac-terraform) — AWS EC2 instance provisioned with Terraform including security group and Elastic IP
 - [16 - Configuration Management with Ansible](./16-configuration-management) — Ansible playbook with base, nginx, ssh, and app/github-app roles configuring a Terraform-provisioned EC2 instance
 - [17 - Node.js Service Deployment](./17-nodejs-service-deployment) — Terraform-provisioned EC2 instance configured via Ansible, with GitHub Actions automating deployment on every push. App repo: [nodejs-service-deployment](https://github.com/WilliamFly/nodejs-service-deployment)
+- [18 - Dockerized Service Deployment](./18-dockerized-service-deployment) — Dockerized Node.js service with Basic Auth, deployed via GitHub Actions to GHCR and a Terraform/Ansible-provisioned EC2 instance. App repo: [dockerized-service-deployment](https://github.com/WilliamFly/dockerized-service-deployment)
 
 ## Project URLs (roadmap.sh)
 
@@ -41,6 +42,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 15 - IaC Terraform: https://roadmap.sh/projects/iac-digitalocean
 - 16 - Configuration Management: https://roadmap.sh/projects/configuration-management
 - 17 - Node.js Service Deployment: https://roadmap.sh/projects/nodejs-service-deployment
+- 18 - Dockerized Service Deployment: https://roadmap.sh/projects/dockerized-service-deployment
 
 ## Live Portfolio
 [williammucha.com](https://williammucha.com)

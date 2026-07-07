@@ -1,0 +1,10 @@
+---
+- name: Setup Remote Server for Docker Deployment
+  hosts: dockerized_server
+  become: true
+
+  roles:
+    - role: base
+      tags: base
+    - role: docker
+      tags: docker

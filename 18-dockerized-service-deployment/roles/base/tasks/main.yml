@@ -1,0 +1,20 @@
+---
+- name: Update apt package cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  become: true
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+  become: true
+
+- name: Install essential utilities
+  apt:
+    name:
+      - curl
+      - git
+      - unzip
+    state: present
+  become: true
