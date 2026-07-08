@@ -1,0 +1,12 @@
+---
+- name: Setup and Deploy Multi-Container Application
+  hosts: multi_container_server
+  become: true
+
+  roles:
+    - role: base
+      tags: base
+    - role: docker
+      tags: docker
+    - role: app
+      tags: app

@@ -22,6 +22,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [16 - Configuration Management with Ansible](./16-configuration-management) — Ansible playbook with base, nginx, ssh, and app/github-app roles configuring a Terraform-provisioned EC2 instance
 - [17 - Node.js Service Deployment](./17-nodejs-service-deployment) — Terraform-provisioned EC2 instance configured via Ansible, with GitHub Actions automating deployment on every push. App repo: [nodejs-service-deployment](https://github.com/WilliamFly/nodejs-service-deployment)
 - [18 - Dockerized Service Deployment](./18-dockerized-service-deployment) — Dockerized Node.js service with Basic Auth, deployed via GitHub Actions to GHCR and a Terraform/Ansible-provisioned EC2 instance. App repo: [dockerized-service-deployment](https://github.com/WilliamFly/dockerized-service-deployment)
+- [19 - Multi-Container Application](./19-multi-container-service) — Docker Compose stack (Node.js API + MongoDB + NGINX reverse proxy), deployed via GitHub Actions to a Terraform/Ansible-provisioned EC2 instance. App repo: [multi-container-service](https://github.com/WilliamFly/multi-container-service)
 
 ## Project URLs (roadmap.sh)
 
@@ -43,6 +44,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 16 - Configuration Management: https://roadmap.sh/projects/configuration-management
 - 17 - Node.js Service Deployment: https://roadmap.sh/projects/nodejs-service-deployment
 - 18 - Dockerized Service Deployment: https://roadmap.sh/projects/dockerized-service-deployment
+- 19 - Multi-Container Application: https://roadmap.sh/projects/multi-container-service
 
 ## Live Portfolio
 [williammucha.com](https://williammucha.com)
