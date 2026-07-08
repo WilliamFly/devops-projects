@@ -1,0 +1,14 @@
+---
+- name: Setup Server with MongoDB for Backup Practice
+  hosts: db_backup_server
+  become: true
+
+  roles:
+    - role: base
+      tags: base
+    - role: docker
+      tags: docker
+    - role: mongo
+      tags: mongo
+    - role: backup
+      tags: backup

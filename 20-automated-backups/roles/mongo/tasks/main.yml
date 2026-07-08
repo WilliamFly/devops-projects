@@ -1,0 +1,49 @@
+---
+- name: Ensure /opt directory is owned by ubuntu
+  file:
+    path: /opt
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+  become: true
+
+- name: Create mongo-backup-demo directory
+  file:
+    path: /opt/mongo-backup-demo
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+  become: true
+  become_user: ubuntu
+
+- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /opt/mongo-backup-demo/docker-compose.yml
+    owner: ubuntu
+    group: ubuntu
+  become: true
+  become_user: ubuntu
+
+- name: Start MongoDB container
+  command: docker compose up -d
+  args:
+    chdir: /opt/mongo-backup-demo
+  become: true
+  become_user: ubuntu
+
+- name: Wait for MongoDB to be ready
+  pause:
+    seconds: 5
+
+- name: Seed sample data into MongoDB
+  shell: |
+    docker exec backup-mongo mongosh tododb --eval '
+      db.todos.insertMany([
+        { title: "Buy groceries", completed: false },
+        { title: "Finish roadmap.sh project 20", completed: false },
+        { title: "Review Terraform state", completed: true }
+      ])
+    '
+  become: true
+  become_user: ubuntu

@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e
+
+TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+BACKUP_DIR="/opt/db-backup/dumps"
+BACKUP_NAME="mongodump-${TIMESTAMP}"
+TARBALL="${BACKUP_NAME}.tar.gz"
+
+mkdir -p "${BACKUP_DIR}"
+
+echo "Starting MongoDB dump..."
+docker exec backup-mongo mongodump --db tododb --out /tmp/${BACKUP_NAME}
+docker cp backup-mongo:/tmp/${BACKUP_NAME} ${BACKUP_DIR}/${BACKUP_NAME}
+docker exec backup-mongo rm -rf /tmp/${BACKUP_NAME}
+
+echo "Creating tarball..."
+tar -czf ${BACKUP_DIR}/${TARBALL} -C ${BACKUP_DIR} ${BACKUP_NAME}
+rm -rf ${BACKUP_DIR}/${BACKUP_NAME}
+
+echo "Uploading to Cloudflare R2..."
+AWS_ACCESS_KEY_ID="{{ r2_access_key_id }}" \
+AWS_SECRET_ACCESS_KEY="{{ r2_secret_access_key }}" \
+aws s3 cp ${BACKUP_DIR}/${TARBALL} s3://{{ r2_bucket_name }}/${TARBALL} \
+  --endpoint-url https://{{ r2_account_id }}.r2.cloudflarestorage.com \
+  --region auto
+
+echo "Cleaning up local tarball..."
+rm -f ${BACKUP_DIR}/${TARBALL}
+
+echo "Backup complete: ${TARBALL}"

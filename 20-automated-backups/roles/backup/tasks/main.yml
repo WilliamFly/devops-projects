@@ -1,0 +1,51 @@
+---
+- name: Install unzip (required for AWS CLI install)
+  apt:
+    name: unzip
+    state: present
+  become: true
+
+- name: Download AWS CLI installer
+  get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/awscliv2.zip
+  become: true
+
+- name: Unzip AWS CLI installer
+  unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+    remote_src: true
+  become: true
+
+- name: Install AWS CLI
+  command: /tmp/aws/install
+  args:
+    creates: /usr/local/bin/aws
+  become: true
+
+- name: Create backup script directory
+  file:
+    path: /opt/db-backup
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+  become: true
+
+- name: Deploy backup script
+  template:
+    src: backup.sh.j2
+    dest: /opt/db-backup/backup.sh
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu
+  become: true
+
+- name: Deploy restore script
+  template:
+    src: restore.sh.j2
+    dest: /opt/db-backup/restore.sh
+    mode: '0755'
+    owner: ubuntu
+    group: ubuntu
+  become: true

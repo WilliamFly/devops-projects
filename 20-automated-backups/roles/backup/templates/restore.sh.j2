@@ -1,0 +1,44 @@
+#!/bin/bash
+set -e
+
+BACKUP_DIR="/opt/db-backup/dumps"
+mkdir -p "${BACKUP_DIR}"
+
+echo "=== Finding latest backup in R2 ==="
+LATEST_BACKUP=$(AWS_ACCESS_KEY_ID="{{ r2_access_key_id }}" \
+  AWS_SECRET_ACCESS_KEY="{{ r2_secret_access_key }}" \
+  aws s3 ls s3://{{ r2_bucket_name }}/ \
+  --endpoint-url https://{{ r2_account_id }}.r2.cloudflarestorage.com \
+  --region auto \
+  | sort | tail -n 1 | awk '{print $4}')
+
+if [ -z "${LATEST_BACKUP}" ]; then
+  echo "ERROR: No backups found in R2 bucket."
+  exit 1
+fi
+
+echo "Latest backup found: ${LATEST_BACKUP}"
+
+echo "=== Downloading from R2 ==="
+AWS_ACCESS_KEY_ID="{{ r2_access_key_id }}" \
+AWS_SECRET_ACCESS_KEY="{{ r2_secret_access_key }}" \
+aws s3 cp s3://{{ r2_bucket_name }}/${LATEST_BACKUP} ${BACKUP_DIR}/${LATEST_BACKUP} \
+  --endpoint-url https://{{ r2_account_id }}.r2.cloudflarestorage.com \
+  --region auto
+
+echo "=== Extracting tarball ==="
+EXTRACTED_DIR="${LATEST_BACKUP%.tar.gz}"
+tar -xzf ${BACKUP_DIR}/${LATEST_BACKUP} -C ${BACKUP_DIR}
+
+echo "=== Copying dump into MongoDB container ==="
+docker cp ${BACKUP_DIR}/${EXTRACTED_DIR} backup-mongo:/tmp/${EXTRACTED_DIR}
+
+echo "=== Restoring database (dropping existing collections first) ==="
+docker exec backup-mongo mongorestore --db tododb --drop /tmp/${EXTRACTED_DIR}/tododb
+
+echo "=== Cleaning up ==="
+docker exec backup-mongo rm -rf /tmp/${EXTRACTED_DIR}
+rm -rf ${BACKUP_DIR}/${EXTRACTED_DIR}
+rm -f ${BACKUP_DIR}/${LATEST_BACKUP}
+
+echo "Restore complete from: ${LATEST_BACKUP}"
