@@ -25,6 +25,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [19 - Multi-Container Application](./19-multi-container-service) — Docker Compose stack (Node.js API + MongoDB + NGINX reverse proxy), deployed via GitHub Actions to a Terraform/Ansible-provisioned EC2 instance. App repo: [multi-container-service](https://github.com/WilliamFly/multi-container-service)
 - [20 - Automated DB Backups](./20-automated-backups) — Scheduled MongoDB backups to Cloudflare R2 via GitHub Actions, with a tested restore script and a one-command `deploy.sh` (Terraform + Ansible orchestration)
 - [21 - Bastion Host](./21-bastion-host) — Public bastion + private server (no public IP) with SSH ProxyJump access, fail2ban monitoring, and iptables rate-limiting — fully automated via a one-command `deploy.sh` (Terraform + Ansible)
+- [22 - VPN Server Setup](./22-vpn-server-setup) — Self-hosted WireGuard VPN, fully automated via one-command `deploy.sh` (Terraform + Ansible), with verified IP routing and DNS leak testing
 
 ## Project URLs (roadmap.sh)
 
@@ -49,6 +50,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 19 - Multi-Container Application: https://roadmap.sh/projects/multi-container-service
 - 20 - Automated DB Backups: https://roadmap.sh/projects/automated-backups
 - 21 - Bastion Host: https://roadmap.sh/projects/bastion-host
+- 22 - VPN Server Setup: https://roadmap.sh/projects/vpn-server-setup
 
 ## Live Portfolio
 [williammucha.com](https://williammucha.com)
