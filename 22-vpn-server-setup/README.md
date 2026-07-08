@@ -94,10 +94,10 @@ This is a real, well-known category of VPN misconfiguration called an **IPv6 lea
 ![WG Show Connected](./assets/wg-show-connected.png)
 
 ### Public IP Before Connecting
-![IP Before](./assets/ip-before-connect.png)
+![IP Before](./assets/ip-before.png)
 
 ### Public IP After Connecting / Disconnecting
-![IP After](./assets/ip-after-disconnect.png)
+![IP After](./assets/ip-after.png)
 
 ### DNS Resolution Through VPN (No Leak)
 ![DNS Status](./assets/dns-resolvectl-status.png)
