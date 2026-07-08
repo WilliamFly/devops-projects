@@ -44,3 +44,6 @@
     groups: docker
     append: true
   become: true
+
+- name: Reset SSH connection to apply new group membership
+  meta: reset_connection
