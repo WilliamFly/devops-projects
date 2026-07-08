@@ -1,0 +1,49 @@
+---
+- name: Remove existing app directory (cleanup any prior root-owned state)
+  file:
+    path: /opt/multi-container-service
+    state: absent
+  become: true
+
+- name: Ensure /opt/multi-container-service parent is owned by ubuntu
+  file:
+    path: /opt
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+  become: true
+
+- name: Clone multi-container-service repo as ubuntu
+  git:
+    repo: "https://github.com/WilliamFly/multi-container-service.git"
+    dest: /opt/multi-container-service
+    version: main
+  become: true
+  become_user: ubuntu
+
+- name: Deploy production .env file as ubuntu
+  copy:
+    content: |
+      PORT=3000
+      MONGO_URI=mongodb://mongo:27017/tododb
+      NODE_ENV=production
+    dest: /opt/multi-container-service/.env
+    owner: ubuntu
+    group: ubuntu
+  become: true
+  become_user: ubuntu
+
+- name: Stop any existing containers (as ubuntu)
+  command: docker compose down
+  args:
+    chdir: /opt/multi-container-service
+  become: true
+  become_user: ubuntu
+  ignore_errors: true
+
+- name: Start containers via Docker Compose (as ubuntu)
+  command: docker compose up --build -d
+  args:
+    chdir: /opt/multi-container-service
+  become: true
+  become_user: ubuntu
