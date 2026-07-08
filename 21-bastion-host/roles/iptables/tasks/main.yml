@@ -1,0 +1,20 @@
+---
+- name: Install iptables-persistent (to survive reboots)
+  apt:
+    name: iptables-persistent
+    state: present
+  become: true
+
+- name: Add rate-limiting rules for new SSH connections
+  shell: |
+    iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --set --name SSH
+    iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 4 --name SSH -j DROP
+  become: true
+  args:
+    executable: /bin/bash
+
+- name: Save iptables rules persistently
+  community.general.iptables_state:
+    state: saved
+    path: /etc/iptables/rules.v4
+  become: true

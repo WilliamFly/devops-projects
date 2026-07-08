@@ -24,6 +24,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - [18 - Dockerized Service Deployment](./18-dockerized-service-deployment) — Dockerized Node.js service with Basic Auth, deployed via GitHub Actions to GHCR and a Terraform/Ansible-provisioned EC2 instance. App repo: [dockerized-service-deployment](https://github.com/WilliamFly/dockerized-service-deployment)
 - [19 - Multi-Container Application](./19-multi-container-service) — Docker Compose stack (Node.js API + MongoDB + NGINX reverse proxy), deployed via GitHub Actions to a Terraform/Ansible-provisioned EC2 instance. App repo: [multi-container-service](https://github.com/WilliamFly/multi-container-service)
 - [20 - Automated DB Backups](./20-automated-backups) — Scheduled MongoDB backups to Cloudflare R2 via GitHub Actions, with a tested restore script and a one-command `deploy.sh` (Terraform + Ansible orchestration)
+- [21 - Bastion Host](./21-bastion-host) — Public bastion + private server (no public IP) with SSH ProxyJump access, fail2ban monitoring, and iptables rate-limiting — fully automated via a one-command `deploy.sh` (Terraform + Ansible)
 
 ## Project URLs (roadmap.sh)
 
@@ -47,6 +48,7 @@ My hands-on practice repo working through roadmap.sh's DevOps Projects list — 
 - 18 - Dockerized Service Deployment: https://roadmap.sh/projects/dockerized-service-deployment
 - 19 - Multi-Container Application: https://roadmap.sh/projects/multi-container-service
 - 20 - Automated DB Backups: https://roadmap.sh/projects/automated-backups
+- 21 - Bastion Host: https://roadmap.sh/projects/bastion-host
 
 ## Live Portfolio
 [williammucha.com](https://williammucha.com)

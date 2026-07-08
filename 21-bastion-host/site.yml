@@ -1,0 +1,18 @@
+---
+- name: Configure Bastion Host
+  hosts: bastion
+  become: true
+  roles:
+    - role: base
+      tags: base
+    - role: fail2ban
+      tags: fail2ban
+    - role: iptables
+      tags: iptables
+
+- name: Configure Private Server
+  hosts: private
+  become: true
+  roles:
+    - role: base
+      tags: base
