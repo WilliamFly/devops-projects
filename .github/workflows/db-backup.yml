@@ -1,0 +1,18 @@
+name: Automated MongoDB Backup (Project 20)
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger backup script on remote server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DB_BACKUP_SERVER_IP }}
+          username: ubuntu
+          key: ${{ secrets.DB_BACKUP_SSH_PRIVATE_KEY }}
+          script: /opt/db-backup/backup.sh
